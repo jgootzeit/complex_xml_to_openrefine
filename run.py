@@ -67,7 +67,7 @@ def convert_root_node(node):
 if __name__ == "__main__":
     if populate != "batch":
         my_source = filename
-        file = open(filename, 'r')
+        file = open(filename, 'r', encoding="utf8")
         read = file.read()
         json_string = json.dumps(xmltodict.parse(read))
         real_json = json.loads(json_string)
