@@ -133,7 +133,7 @@ class RecordCollection:
         self.results.append(new_record)
 
     def jsonize(self):
-        file = open(self.output_name, 'w')
+        file = open(self.output_name, 'w', encoding="utf8")
         file.write(json.dumps(self.results))
         file.close()
 
@@ -166,7 +166,7 @@ class RecordCollection:
                 if k not in keys:
                     keys.append(k)
         keys = sorted(keys)
-        with open(self.output_name, 'w') as output_file:
+        with open(self.output_name, 'w', encoding="utf8") as output_file:
             dict_writer = csv.writer(output_file, delimiter=delimiter)
             dict_writer.writerow(keys)
             i = 0
@@ -210,7 +210,7 @@ class Batch:
 
     def add_record(self, record):
         filename = record.split("/")[-1]
-        with open(record, 'r') as file:
+        with open(record, 'r', encoding="utf8") as file:
             read = file.read()
             clean = remove_bad_stuff(read)
             json_string = json.dumps(xmltodict.parse(clean))
