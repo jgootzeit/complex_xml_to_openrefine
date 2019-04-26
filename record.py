@@ -28,7 +28,7 @@ class Record:
             elif type(v) is list:
                 i = 0
                 for thing in v:
-                    key = "{}.{}".format(k, i)
+                    key = "{}/{}".format(k, i)
                     if type(thing) is str:
                         self.payload.update({key: thing})
                     elif type(thing) is dict:
@@ -56,7 +56,7 @@ class Record:
             elif type(v) is list:
                 i = 0
                 for thing in v:
-                    key = "{}.{}".format(k, i)
+                    key = "{}/{}".format(k, i)
                     if type(thing) is str:
                         self.ordered_payload.update({key: thing})
                     elif type(thing) is dict:
@@ -91,9 +91,9 @@ class RecordChunk:
     def split(self):
         for k, v in self.fragment.items():
             if type(v) is str:
-                self.payload.append({"{}{}".format(self.path, k): v})
+                self.payload.append({"{}/{}".format(self.path, k): v})
             elif type(v) is dict:
-                dictionary_to_decipher = RecordChunk(v, "{}.{}".format(self.path, k))
+                dictionary_to_decipher = RecordChunk(v, "{}/{}".format(self.path, k))
                 x = dictionary_to_decipher.split()
                 if x is not None:
                     for item in x:
@@ -166,7 +166,7 @@ class RecordCollection:
                 if k not in keys:
                     keys.append(k)
         keys = sorted(keys)
-        with open(self.output_name, 'w', encoding="utf8") as output_file:
+        with open(self.output_name, 'w', newline='', encoding="utf8") as output_file:
             dict_writer = csv.writer(output_file, delimiter=delimiter)
             dict_writer.writerow(keys)
             i = 0
